@@ -1,0 +1,7 @@
+# Node, npm, bower
+node_modules
+npm-v?.?.?
+package-lock.json
+
+#IntelliJ IDEA
+.idea/

@@ -1,27 +1,38 @@
 import React from 'react';
 
 class Counter extends React.Component {
-    constructor() {
+    constructor(props) {
         super();
-        this.state = {num: 1}
+        this.state = {
+            num: props.num,
+        }
     }
-
+    updateNum(num){
+        this.setState({num: num});
+        this.props.changeNum(num);
+    }
     increase() {
-        this.setState({num: (this.state.num === this.props.max) ? this.props.max : (this.state.num + 1)});
+        const result = (this.state.num === this.props.max) ? this.props.max : (this.state.num + 1);
+        this.updateNum(result);
     }
 
     decrease() {
-        this.setState({num: (this.state.num === this.props.min) ? this.props.min : (this.state.num - 1)});
+        const result = (this.state.num === this.props.min) ? this.props.min : (this.state.num - 1);
+        this.updateNum(result);
     }
 
-    render() {
+    handlerChange(e){
+       this.updateNum(e.target.value);
+    }
+
+    render(){
         return (<div>
             <input type="button" value='-' onClick={this.decrease.bind(this)}/>
-            <input type="text" size="5" value={this.state.num}/>
+            <input type="text" size="5" value={this.state.num} onChange={e => this.handlerChange(e)}/>
             <input type="button" value='+' onClick={this.increase.bind(this)}/>
         </div>)
     }
 }
 
-export  default Counter;
+export default Counter;
 
