@@ -26,7 +26,7 @@ class Counter extends React.Component {
     }
 
     render(){
-        return (<div>
+        return (<div>套数：
             <input type="button" value='-' onClick={this.decrease.bind(this)}/>
             <input type="text" size="5" value={this.state.num} onChange={e => this.handlerChange(e)}/>
             <input type="button" value='+' onClick={this.increase.bind(this)}/>

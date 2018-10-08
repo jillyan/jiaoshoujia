@@ -3,7 +3,7 @@ var webpack = require('webpack');
 var ROOT_PATH = path.resolve(__dirname);
 var APP_PATH = path.resolve(ROOT_PATH, 'app');
 var BUILD_PATH = path.resolve(ROOT_PATH, 'build');
-// var htmlWebpackPlugin =  require('html-webpack-plugin');
+var HtmlWebpackPlugin =  require('html-webpack-plugin');
 
 module.exports = {
     entry: [
@@ -25,7 +25,7 @@ module.exports = {
                         presets:['react','es2015']
                     }
             }, {
-                test: /\.scss$/,
+                test: /\.(css|scss)$/,
                 loaders: ['style', 'css', 'sass'],
                 include: APP_PATH
             }, {
@@ -43,6 +43,11 @@ module.exports = {
     },
     plugins: [
         new webpack.NoErrorsPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlugin({
+            filename: './index.html',
+            template: path.resolve(__dirname, './index.html'),
+            inject: 'body',
+        })
     ]
 };
