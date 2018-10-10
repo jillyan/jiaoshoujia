@@ -16,6 +16,7 @@ class StuffList extends React.Component {
             jietouPrice: 1,
             lunziNum: 0,
             lunziPrice: 3,
+            days:1,
         }
     }
 
@@ -45,9 +46,27 @@ class StuffList extends React.Component {
 
     getTotal() {
         const s = this.state;
-        return s.unitNum * s.unitPrice + s.banziNum * s.banziPrice + s.jietouNum * s.jietouNum + s.lunziNum * s.lunziPrice;
+        console.table(s);
+        return (s.unitNum * s.unitPrice + s.banziNum * s.banziPrice + s.jietouNum * s.jietouNum + s.lunziNum * s.lunziPrice) * s.days;
     }
 
+    handlerDaysChange(e){
+        this.setState({
+            days: e.target.value
+        })
+    }
+    decreaseDays(){
+        const newValue = this.state.days > 1 ? this.state.days -1 : 0;
+        this.setState({
+            days: newValue
+        });
+    }
+    increaseDays(){
+        const newValue = this.state.days + 1;
+        this.setState({
+            days: newValue,
+        });
+    }
     render() {
         return (
             <Grid>
@@ -56,7 +75,14 @@ class StuffList extends React.Component {
                 <Counter min='0' max='100'price={this.state.jietouPrice} image="app/picture/jietou.jpg" num={this.state.jietouNum}  changeNum={num => this.changeJietouNum(num)}/>
                 <Counter min='0' max='100'price={this.state.lunziPrice} image="app/picture/lunzi.jpg" num={this.state.lunziNum}  changeNum={num => this.changeLunziNum(num)}/>
                 <Row className="show-grid">
-                    <Col xs={8} md={8}>
+                    <Col xs={4} md={4}></Col>
+                    <Col xs={2} md={2}>
+                        <div>
+                            天数：
+                            <input type="button" value='-' onClick={this.decreaseDays.bind(this)}/>
+                            <input type="text" size="5" value={this.state.days} onChange={this.handlerDaysChange.bind(this)}/>
+                            <input type="button" value='+' onClick={this.increaseDays.bind(this)}/>
+                        </div>
                     </Col>
                     <Col xs={2} md={2}>
                         总计{this.getTotal()}元
